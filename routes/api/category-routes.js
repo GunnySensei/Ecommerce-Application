@@ -11,6 +11,7 @@ router.get("/", (req, res) => {
       {
         model: Product,
         attributes: ["id", "product_name", "price", "stock", "category_id"],
+        as: "products",
       },
     ],
   })
@@ -32,9 +33,15 @@ router.get("/:id", (req, res) => {
       {
         model: Product,
         attributes: ["id", "product_name", "price", "stock", "category_id"],
+        as: "products",
       },
     ],
-  });
+  })
+    .then((dbCategoryData) => res.json(dbCategoryData))
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 router.post("/", (req, res) => {
@@ -92,7 +99,6 @@ router.delete("/:id", (req, res) => {
       console.log(err);
       res.status(500).json(err);
     });
-  S;
 });
 
 module.exports = router;
